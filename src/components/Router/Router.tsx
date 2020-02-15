@@ -17,7 +17,12 @@ export const Router = () => {
         <NavigationContainer>
             <Tab.Navigator
                 screenOptions={({ route }) => ({
-                    tabBarIcon: ({ color }) => <FooterBarIcon color={color} route={route} />,
+                    tabBarIcon: ({ color, focused }) =>
+                        <FooterBarIcon
+                            color={color}
+                            focused={focused}
+                            route={route}
+                        />,
                 })}
             >
                 <Tab.Screen name="Home" component={HomeScreen} />
