@@ -1,14 +1,15 @@
-// Other Imports
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { NavigationContainer } from "@react-navigation/native"
 import * as React from "react"
-// Screens Imports
-import { AddNewScreen } from "../Screens/AddNewScreen"
-import { HomeScreen } from "../Screens/HomeScreen"
-import { MyListScreen } from "../Screens/MyListScreen"
-import { ScanScreen } from "../Screens/ScanScreen"
-import { SettingsScreen } from "../Screens/SettingsScreen"
-import { FooterBarIcon } from "../_Specific/FooterBarIcon"
+
+import { AddNewScreen } from "../../Screens/AddNewScreen"
+import { HomeScreen } from "../../Screens/HomeScreen"
+import { LoginScreen } from '../../Screens/Login'
+import { MyListScreen } from "../../Screens/MyListScreen"
+import { RegisterScreen } from '../../Screens/Register'
+import { ScanScreen } from "../../Screens/ScanScreen"
+import { SettingsScreen } from "../../Screens/SettingsScreen"
+import { FooterBarIcon } from "../FooterBarIcon"
 
 const Tab = createBottomTabNavigator()
 
@@ -30,6 +31,8 @@ export const Router = () => {
                 <Tab.Screen name="My List" component={MyListScreen} />
                 <Tab.Screen name="Add New" component={AddNewScreen} />
                 <Tab.Screen name="Settings" component={SettingsScreen} />
+                <Tab.Screen name="Login" component={LoginScreen} />
+                <Tab.Screen name="Register" component={RegisterScreen} />
             </Tab.Navigator>
         </NavigationContainer>
     )

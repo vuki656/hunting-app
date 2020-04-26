@@ -1,6 +1,4 @@
-// Other Imports
 import React from "react"
-// Native Component Imports
 import { Text, View } from "react-native"
 
 export const SettingsScreen = () => {

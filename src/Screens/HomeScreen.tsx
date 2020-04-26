@@ -1,6 +1,4 @@
-// Other Imports
 import * as React from 'react'
-// Native Component Imports
 import { View, Text } from 'react-native'
 
 export const HomeScreen = () => {
