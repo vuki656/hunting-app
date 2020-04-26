@@ -1,0 +1,1 @@
+export const SET_SCANNED_CODE = 'SET_SCANNED_CODE'

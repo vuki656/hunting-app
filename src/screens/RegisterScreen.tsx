@@ -109,7 +109,7 @@ export const RegisterScreen = (props) => {
 
                 ) : (
                     <Button
-                        color="#3740FE"
+                        color="blue"
                         title="Register"
                         onPress={() => handleUserRegister()}
                     />

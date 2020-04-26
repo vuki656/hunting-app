@@ -5,12 +5,13 @@ import { useEffect, useState } from 'react'
 import firebase from '../../firebase'
 import { LoginScreen } from '../../screens/LoginScreen'
 import { RegisterScreen } from '../../screens/RegisterScreen'
+import { SaveMeatByCodeScreen } from '../../screens/SaveMeatByCode'
 import { MainRouter } from '../MainRouter'
 
 const Stack = createStackNavigator()
 
 export const AuthRouter = () => {
-    const [initialRoute, setInitialRoute] = useState('Home') // TODO Set to register
+    const [initialRoute, setInitialRoute] = useState('Login') // TODO Set to login
 
 
     useEffect(() => {
@@ -42,6 +43,13 @@ export const AuthRouter = () => {
                 component={MainRouter}
                 options={{
                     title: 'Home',
+                }}
+            />
+            <Stack.Screen
+                name="SaveMeat"
+                component={SaveMeatByCodeScreen}
+                options={{
+                    title: 'SaveMeat',
                 }}
             />
         </Stack.Navigator>

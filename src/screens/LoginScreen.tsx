@@ -57,7 +57,6 @@ export const LoginScreen = (props) => {
                     Trail Glassin
                 </Text>
             </View>
-
             <TextInput
                 value={email}
                 style={styles.input}
@@ -82,7 +81,7 @@ export const LoginScreen = (props) => {
 
                 ) : (
                     <Button
-                        color="#3740FE"
+                        color="blue"
                         title="Login"
                         onPress={() => handleUserLogin()}
                     />
