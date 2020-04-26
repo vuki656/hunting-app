@@ -2,12 +2,14 @@ import { BarCodeScanner } from 'expo-barcode-scanner'
 import React, { useEffect, useState } from 'react'
 import { Button, StyleSheet, View } from 'react-native'
 import { useDispatch } from 'react-redux'
+import firebase from '../firebase'
 import { setScannedCode } from '../redux/actions/userActions'
 
 export const ScanScreen = (props) => {
     const { navigation } = props
 
     const dispatch = useDispatch()
+    const [currentUserUid] = useState(firebase.auth().currentUser.uid)
     const [hasPermission, setHasPermission] = useState(null)
     const [scanned, setScanned] = useState(false)
 
@@ -20,10 +22,30 @@ export const ScanScreen = (props) => {
         setHasPermission(status === 'granted')
     }
 
-    // Todo implement check if exists
-    const handleQrCodeRead = ({ data: scannedCode }) => {
-        navigation.navigate('SaveMeat')
-        dispatch(setScannedCode(scannedCode))
+    const handleQrCodeRead = async ({ data: scannedCode }) => {
+        let qrCodeExist = await checkIfQrCodeExists(scannedCode)
+
+        if (qrCodeExist) {
+            console.log('code exists')
+        } else {
+            navigation.navigate('SaveMeat')
+            dispatch(setScannedCode(scannedCode))
+        }
+
+        setScanned(true)
+    }
+
+    const checkIfQrCodeExists = async (scannedCode) => {
+        let qrCodeExists = false
+
+        await firebase
+        .database()
+        .ref(`meat/${currentUserUid}/${scannedCode}`)
+        .once('value', snapshot => {
+            if (snapshot.exists()) qrCodeExists = true
+        })
+
+        return qrCodeExists
     }
 
     return (

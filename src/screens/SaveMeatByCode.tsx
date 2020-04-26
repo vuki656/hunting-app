@@ -2,7 +2,6 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import moment from 'moment'
 import React, { useState } from 'react'
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
-import uuid from 'react-native-uuid'
 import { useSelector } from 'react-redux'
 import useToggle from 'react-use/lib/useToggle'
 
@@ -34,12 +33,11 @@ export const SaveMeatByCodeScreen = (props) => {
         setHuntDate(new Date())
     }
 
+    // todo remove uuid and buffer
     const handleMeatSave = () => {
-        const uniqueKey = uuid.v4()
-
         firebase
         .database()
-        .ref(`meat/${currentUserUid}/${uniqueKey}`)
+        .ref(`meat/${currentUserUid}/${scannedCode}`)
         .update({
             code: scannedCode,
             species,
