@@ -1,6 +1,7 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons"
-import React from "react"
-import { FooterBarIconProps } from "./FooterBarIcon.types"
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import React from 'react'
+
+import { FooterBarIconProps } from './FooterBarIcon.types'
 
 export const FooterBarIcon: React.FunctionComponent<FooterBarIconProps> = (props) => {
     const { color, route } = props

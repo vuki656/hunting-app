@@ -1,10 +1,12 @@
-// Other Imports
+import { NavigationContainer } from '@react-navigation/native'
 import * as React from 'react'
-// Component Imports
-import { Router } from "./components/Router"
 
-export const Index = () => {
+import { AuthRouter } from './components/AuthRouter/AuthRouter'
+
+export default function Index() {
     return (
-        <Router />
+        <NavigationContainer>
+            <AuthRouter />
+        </NavigationContainer>
     )
 }

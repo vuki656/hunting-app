@@ -1,10 +1,9 @@
-// Other Imports
-import * as React from 'react';
-// Component Imports
-import { Index } from "./src";
+import * as React from 'react'
+
+import Index from './src'
 
 export default function App() {
     return (
         <Index />
-    );
+    )
 }
