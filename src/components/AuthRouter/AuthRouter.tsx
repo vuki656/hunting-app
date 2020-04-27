@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 
 import firebase from '../../firebase'
 import { EditMeatScreen } from '../../screens/EditMeatScreen'
+import { EditProfileScreen } from '../../screens/EditProfileScreen'
 import { LoginScreen } from '../../screens/LoginScreen'
 import { RegisterScreen } from '../../screens/RegisterScreen'
 import { SaveMeatByCodeScreen } from '../../screens/SaveMeatByCode'
@@ -13,7 +14,7 @@ import { MeatListItemScreen } from '../MeatListItem'
 const Stack = createStackNavigator()
 
 export const AuthRouter = () => {
-    const [initialRoute, setInitialRoute] = useState('Login') // TODO Set to login
+    const [initialRoute, setInitialRoute] = useState('Login')
 
     useEffect(() => {
         firebase.auth().onAuthStateChanged(user => {
@@ -21,7 +22,7 @@ export const AuthRouter = () => {
         })
     }, [setInitialRoute])
 
-   return (
+    return (
         <Stack.Navigator
             initialRouteName={initialRoute}
             screenOptions={{
@@ -35,37 +36,32 @@ export const AuthRouter = () => {
             <Stack.Screen
                 name="Register"
                 component={RegisterScreen}
-                options={{
-                    title: 'Register',
-                }}
+                options={{ title: 'Register' }}
             />
             <Stack.Screen
                 name="Home"
                 component={MainRouter}
-                options={{
-                    title: 'Home',
-                }}
+                options={{ title: 'Home' }}
             />
             <Stack.Screen
                 name="SaveMeat"
                 component={SaveMeatByCodeScreen}
-                options={{
-                    title: 'SaveMeat',
-                }}
+                options={{ title: 'Save Meat' }}
             />
             <Stack.Screen
                 name="MeatItem"
                 component={MeatListItemScreen}
-                options={{
-                    title: 'MeatItem',
-                }}
+                options={{ title: 'Meat Item' }}
             />
             <Stack.Screen
                 name="EditMeat"
                 component={EditMeatScreen}
-                options={{
-                    title: 'EditMeat',
-                }}
+                options={{ title: 'Edit Meat' }}
+            />
+            <Stack.Screen
+                name="EditProfile"
+                component={EditProfileScreen}
+                options={{ title: 'Edit Profile' }}
             />
         </Stack.Navigator>
     )

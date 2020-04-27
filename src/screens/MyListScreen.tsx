@@ -58,7 +58,9 @@ export const MyListScreen = (props) => {
             <View>
                 <FlatList
                     data={meatList}
-                    renderItem={({ item }) => <MeatListItemScreen meatItem={item} navigation={navigation}/>}
+                    renderItem={({ item }) => (
+                        <MeatListItemScreen meatItem={item} navigation={navigation}/>
+                    )}
                 />
             </View>
         </View>

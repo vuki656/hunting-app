@@ -12,7 +12,6 @@ export const EditMeatScreen = (props) => {
     const { navigation } = props
 
     const selectedMeat: MeatItemType = useSelector((state) => state.user.selectedMeat)
-    console.log(selectedMeat)
     const [isDatePickerToggled, toggleDatePicker] = useToggle(false)
     const [currentUserUid] = useState(firebase.auth().currentUser.uid)
 

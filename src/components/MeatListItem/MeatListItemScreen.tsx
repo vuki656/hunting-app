@@ -38,13 +38,13 @@ export const MeatListItemScreen = (props) => {
     return (
         <View>
             <View style={styles.meatItem}>
-                <Text>Cut: {meatItem.cut}</Text>
-                <Text>Hunt Date: {moment(meatItem.huntDate).format('DD MM YYYY')}</Text>
-                <Text>Hunt Spot: {meatItem.huntSpot}</Text>
-                <Text>Species: {meatItem.species}</Text>
-                <Text>Code: {meatItem.code}</Text>
-                <Text>Weight: {meatItem.weight}</Text>
-                <Text>Consumed: {meatItem.consumed ? 'Yes' : 'No'}</Text>
+                <Text>🍗 Cut: {meatItem.cut}</Text>
+                <Text>🐖 Species: {meatItem.species}</Text>
+                <Text>📅 Hunt Date: {moment(meatItem.huntDate).format('DD MM YYYY')}</Text>
+                <Text>🗺️ Hunt Spot: {meatItem.huntSpot}</Text>
+                <Text>💾 Code: {meatItem.code}</Text>
+                <Text>⚖️ Weight: {meatItem.weight}</Text>
+                <Text>🍴 Consumed: {meatItem.consumed ? 'Yes' : 'No'}</Text>
             </View>
             <View>
                 <Button
