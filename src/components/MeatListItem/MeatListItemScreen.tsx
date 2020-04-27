@@ -22,9 +22,6 @@ export const MeatListItemScreen = (props) => {
         .update({
             consumed: !meatItem.consumed,
         })
-        .then(() => {
-            alert(`You marked meat with species: ${meatItem.species} and cut: ${meatItem.cut} as consumed.`)
-        })
         .catch(() => {
             alert('Something wen\'t wrong, please try again.')
         })

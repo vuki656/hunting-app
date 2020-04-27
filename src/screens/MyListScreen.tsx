@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 
-import { MeatListItemScreen } from '../components/MeatListItem'
+import { MeatItemType, MeatListItemScreen } from '../components/MeatListItem'
 import firebase from '../firebase'
 
 export const MyListScreen = (props) => {
     const { navigation } = props
 
     const [currentUserUid] = useState(firebase.auth().currentUser.uid)
-    const [meatList, setMeatList] = useState([])
-
+    const [meatList, setMeatList] = useState<MeatItemType[]>(null)
 
     // TODO: list not fetching after scan, something with updating on unmounted component
     useEffect(() => {
@@ -23,7 +22,7 @@ export const MyListScreen = (props) => {
         .database()
         .ref(`meat/${currentUserUid}`)
         .on('child_changed', () => {
-            // fetchMeat()
+            fetchMeat()
         })
     }
 
@@ -37,36 +36,39 @@ export const MyListScreen = (props) => {
         .ref('meat')
         .child(`${currentUserUid}/`)
         .on('value', meatList => {
-            meatList.forEach(meat => {
-                meatTempList.push({
-                    code: meat.val().code,
-                    cut: meat.val().cut,
-                    huntDate: meat.val().huntDate,
-                    huntSpot: meat.val().huntSpot,
-                    species: meat.val().species,
-                    weight: meat.val().weight,
-                    consumed: meat.val().consumed,
+                meatList.forEach(meat => {
+                    meatTempList.push({
+                        code: meat.val().code,
+                        cut: meat.val().cut,
+                        huntDate: meat.val().huntDate,
+                        huntSpot: meat.val().huntSpot,
+                        species: meat.val().species,
+                        weight: meat.val().weight,
+                        consumed: meat.val().consumed,
+                    })
                 })
-            })
-        })
+            },
+        )
 
         setMeatList(meatTempList)
     }
 
     return (
         <View style={styles.container}>
-            <View>
-                <FlatList
-                    data={meatList}
-                    renderItem={({ item }) => (
-                        <MeatListItemScreen
-                            meatItem={item}
-                            navigation={navigation}
-                            key={item.code}
-                        />
-                    )}
-                />
-            </View>
+            {meatList && (
+                <View>
+                    <FlatList
+                        data={meatList}
+                        renderItem={({ item }) => (
+                            <MeatListItemScreen
+                                meatItem={item}
+                                navigation={navigation}
+                                key={item.code}
+                            />
+                        )}
+                    />
+                </View>
+            )}
         </View>
     )
 }

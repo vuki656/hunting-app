@@ -50,6 +50,19 @@ export const EditMeatScreen = (props) => {
         })
     }
 
+    const handleItemDelete = () => {
+        firebase
+        .database()
+        .ref(`meat/${currentUserUid}/${selectedMeat.code}`)
+        .remove()
+        .then(() => {
+            navigation.navigate('My List')
+        })
+        .catch(() => {
+            alert('Something wen\'t wrong, please try again.')
+        })
+    }
+
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -105,6 +118,14 @@ export const EditMeatScreen = (props) => {
                     placeholder="Weight (Kg)"
                     onChangeText={setWeight}
                 />
+
+                <View style={styles.button}>
+                    <Button
+                        color="red"
+                        title="🗑️ Delete"
+                        onPress={() => handleItemDelete()}
+                    />
+                </View>
                 <View style={styles.button}>
                     <Button
                         color="orange"
@@ -114,7 +135,7 @@ export const EditMeatScreen = (props) => {
                 </View>
                 <View style={styles.button}>
                     <Button
-                        color="red"
+                        color="green"
                         title="💾 Save"
                         onPress={() => handleMeatEditSave()}
                     />
@@ -145,6 +166,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     button: {
-        padding: 20,
+        padding: 5,
     },
 })
