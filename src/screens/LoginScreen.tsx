@@ -5,8 +5,8 @@ import firebase from '../firebase'
 export const LoginScreen = (props) => {
     const { navigation } = props
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('off.vukovic@gmail.com') // todo remove
+    const [password, setPassword] = useState('123456')
     const [error, setError] = useState('')
     const [isLoading, setLoading] = useState(false)
 

@@ -1,6 +1,8 @@
+import { NavigationScreenProp } from 'react-navigation'
+
 export type MeatListItemProps = {
     meatItem: MeatItemType,
-    navigation?: any // TODO: set type
+    navigation?: NavigationScreenProp<string>
 }
 
 export type MeatItemType = {

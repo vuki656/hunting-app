@@ -6,8 +6,9 @@ import { useDispatch } from 'react-redux'
 
 import firebase from '../../firebase'
 import { setSelectedMeat } from '../../redux/actions/userActions'
+import { MeatListItemProps } from './MeatListItem.types'
 
-export const MeatListItemScreen = (props) => {
+export const MeatListItemScreen: React.FC<MeatListItemProps>= (props) => {
     const { meatItem, navigation } = props
 
     const dispatch = useDispatch()

@@ -8,9 +8,8 @@ export const MyListScreen = (props) => {
     const { navigation } = props
 
     const [currentUserUid] = useState(firebase.auth().currentUser.uid)
-    const [meatList, setMeatList] = useState<MeatItemType[]>(null)
+    const [meatList, setMeatList] = useState<MeatItemType[]>([])
 
-    // TODO: list not fetching after scan, something with updating on unmounted component
     useEffect(() => {
         activateListeners()
         fetchMeat()
@@ -27,17 +26,15 @@ export const MyListScreen = (props) => {
     }
 
     // Get meat list from database
-    const fetchMeat = async () => {
-        setMeatList([])
-        let meatTempList = []
-
-        await firebase
+    const fetchMeat = () => {
+        firebase
         .database()
         .ref('meat')
         .child(`${currentUserUid}/`)
-        .on('value', meatList => {
-                meatList.forEach(meat => {
-                    meatTempList.push({
+        .on('value', _meatList => {
+                setMeatList([])
+                _meatList.forEach(meat => {
+                    setMeatList((meatList) => [...meatList, {
                         code: meat.val().code,
                         cut: meat.val().cut,
                         huntDate: meat.val().huntDate,
@@ -45,30 +42,26 @@ export const MyListScreen = (props) => {
                         species: meat.val().species,
                         weight: meat.val().weight,
                         consumed: meat.val().consumed,
-                    })
+                    }])
                 })
             },
         )
-
-        setMeatList(meatTempList)
     }
 
     return (
         <View style={styles.container}>
-            {meatList && (
-                <View>
-                    <FlatList
-                        data={meatList}
-                        renderItem={({ item }) => (
-                            <MeatListItemScreen
-                                meatItem={item}
-                                navigation={navigation}
-                                key={item.code}
-                            />
-                        )}
-                    />
-                </View>
-            )}
+            <View>
+                {meatList && <FlatList
+                    data={meatList}
+                    renderItem={({ item }) => (
+                        <MeatListItemScreen
+                            meatItem={item}
+                            navigation={navigation}
+                            key={item.code}
+                        />
+                    )}
+                />}
+            </View>
         </View>
     )
 }

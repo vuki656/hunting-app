@@ -114,9 +114,16 @@ export const SaveMeatByCodeScreen = (props) => {
                 />
                 <View style={styles.button}>
                     <Button
-                        color="red"
+                        color="green"
                         title="💾 Save"
                         onPress={() => handleMeatSave()}
+                    />
+                </View>
+                <View style={styles.button}>
+                    <Button
+                        color="red"
+                        title="🔙  Cancel"
+                        onPress={() => navigation.goBack()}
                     />
                 </View>
             </View>
@@ -146,7 +153,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     button: {
-        padding: 20,
+        padding: 10,
     },
 })
 
