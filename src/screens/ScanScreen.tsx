@@ -60,7 +60,8 @@ export const ScanScreen = (props) => {
             )}
             {scanned && (
                 <Button
-                    title={'Tap to Scan Again'}
+                    color="orange"
+                    title={'📷 Tap to Scan Again'}
                     onPress={() => setScanned(false)}
                 />
             )}

@@ -1,28 +1,69 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
+import { useEffect, useState } from 'react'
 
-import { MyListScreen } from '../../screens/MyListScreen'
-import { ScanScreen } from '../../screens/ScanScreen'
-import { SettingsScreen } from '../../screens/SettingsScreen'
-import { FooterBarIcon } from '../FooterBarIcon'
+import firebase from '../../firebase'
+import { EditMeatScreen } from '../../screens/EditMeatScreen'
+import { EditProfileScreen } from '../../screens/EditProfileScreen'
+import { LoginScreen } from '../../screens/LoginScreen'
+import { RegisterScreen } from '../../screens/RegisterScreen'
+import { SaveMeatByCodeScreen } from '../../screens/SaveMeatByCode'
+import { BottomNavRouter } from '../BottomNavRouter'
+import { MeatListItemScreen } from '../MeatListItem'
 
-const Tab = createBottomTabNavigator()
+const Stack = createStackNavigator()
 
 export const MainRouter = () => {
+    const [initialRoute, setInitialRoute] = useState('Login')
+
+    useEffect(() => {
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) setInitialRoute('Home')
+        })
+    }, [setInitialRoute])
+
     return (
-        <Tab.Navigator
-            screenOptions={({ route }) => ({
-                tabBarIcon: ({ color, focused }) =>
-                    <FooterBarIcon
-                        color={color}
-                        focused={focused}
-                        route={route}
-                    />,
-            })}
-        >
-            <Tab.Screen name="Scan" component={ScanScreen} />
-            <Tab.Screen name="My List" component={MyListScreen} />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
-        </Tab.Navigator>
+        <Stack.Navigator
+            initialRouteName={initialRoute}
+            screenOptions={{
+                headerTitleAlign: 'center',
+            }}>
+            <Stack.Screen
+                name="Login"
+                component={LoginScreen}
+                options={{ title: 'Login' }}
+            />
+            <Stack.Screen
+                name="Register"
+                component={RegisterScreen}
+                options={{ title: 'Register' }}
+            />
+            <Stack.Screen
+                name="Home"
+                component={BottomNavRouter}
+                options={{ title: 'Home' }}
+            />
+            <Stack.Screen
+                name="SaveMeat"
+                component={SaveMeatByCodeScreen}
+                options={{ title: 'Save Meat' }}
+            />
+            <Stack.Screen
+                name="MeatItem"
+                component={MeatListItemScreen}
+                options={{ title: 'Meat Item' }}
+            />
+            <Stack.Screen
+                name="EditMeat"
+                component={EditMeatScreen}
+                options={{ title: 'Edit Meat' }}
+            />
+            <Stack.Screen
+                name="EditProfile"
+                component={EditProfileScreen}
+                options={{ title: 'Edit Profile' }}
+            />
+        </Stack.Navigator>
     )
 }
+

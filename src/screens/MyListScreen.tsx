@@ -13,8 +13,8 @@ export const MyListScreen = (props) => {
 
     // TODO: list not fetching after scan, something with updating on unmounted component
     useEffect(() => {
-        fetchMeat()
         activateListeners()
+        fetchMeat()
     }, [])
 
     // Listen for meat changes
@@ -23,7 +23,7 @@ export const MyListScreen = (props) => {
         .database()
         .ref(`meat/${currentUserUid}`)
         .on('child_changed', () => {
-            fetchMeat()
+            // fetchMeat()
         })
     }
 
@@ -59,7 +59,11 @@ export const MyListScreen = (props) => {
                 <FlatList
                     data={meatList}
                     renderItem={({ item }) => (
-                        <MeatListItemScreen meatItem={item} navigation={navigation}/>
+                        <MeatListItemScreen
+                            meatItem={item}
+                            navigation={navigation}
+                            key={item.code}
+                        />
                     )}
                 />
             </View>

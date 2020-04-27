@@ -16,16 +16,20 @@ export const SettingsScreen = (props) => {
 
     return (
         <View style={styles.container}>
-            <Button
-                color="blue"
-                title="Logout"
-                onPress={() => handleLogOut()}
-            />
-            <Button
-                color="red"
-                title="Edit Profile"
-                onPress={() =>  navigation.navigate('EditProfile')}
-            />
+            <View style={styles.button}>
+                <Button
+                    color="orange"
+                    title="🔙 Logout"
+                    onPress={() => handleLogOut()}
+                />
+            </View>
+            <View style={styles.button}>
+                <Button
+                    color="red"
+                    title="🖊️ Edit Profile"
+                    onPress={() => navigation.navigate('EditProfile')}
+                />
+            </View>
         </View>
     )
 }
@@ -33,6 +37,12 @@ export const SettingsScreen = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        display: 'flex',
         flexDirection: 'column',
+        justifyContent: 'center',
+        padding: 40,
+    },
+    button: {
+        marginTop: 20,
     },
 })

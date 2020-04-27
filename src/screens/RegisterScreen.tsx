@@ -74,27 +74,27 @@ export const RegisterScreen = (props) => {
             </View>
             <TextInput
                 value={firstName}
-                style={styles.input}
+                style={styles.field}
                 placeholder="First name"
                 onChangeText={setFirstName}
             />
             <TextInput
                 value={email}
-                style={styles.input}
+                style={styles.field}
                 placeholder="Email"
                 onChangeText={setEmail}
                 textContentType="emailAddress"
             />
             <TextInput
                 value={password}
-                style={styles.input}
+                style={styles.field}
                 placeholder="Password"
                 secureTextEntry={true}
                 onChangeText={setPassword}
             />
             <TextInput
                 value={repeatPassword}
-                style={styles.input}
+                style={styles.field}
                 placeholder="Repeat Password"
                 secureTextEntry={true}
                 onChangeText={setRepeatPassword}
@@ -109,7 +109,7 @@ export const RegisterScreen = (props) => {
 
                 ) : (
                     <Button
-                        color="blue"
+                        color="orange"
                         title="Register"
                         onPress={() => handleUserRegister()}
                     />
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     titleText: {
         fontSize: 40,
     },
-    input: {
+    field: {
         width: '100%',
         marginBottom: 20,
         paddingBottom: 5,
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     footerCta: {
-        color: 'blue',
+        color: 'orange',
         fontWeight: 'bold',
     },
     errorText: {

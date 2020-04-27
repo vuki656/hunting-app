@@ -23,7 +23,7 @@ export const MeatListItemScreen = (props) => {
             consumed: !meatItem.consumed,
         })
         .then(() => {
-            alert(`Update Successful`)
+            alert(`You marked meat with species: ${meatItem.species} and cut: ${meatItem.cut} as consumed.`)
         })
         .catch(() => {
             alert('Something wen\'t wrong, please try again.')
@@ -36,42 +36,71 @@ export const MeatListItemScreen = (props) => {
     }
 
     return (
-        <View>
+        <View style={styles.container}>
             <View style={styles.meatItem}>
-                <Text>🍗 Cut: {meatItem.cut}</Text>
-                <Text>🐖 Species: {meatItem.species}</Text>
-                <Text>📅 Hunt Date: {moment(meatItem.huntDate).format('DD MM YYYY')}</Text>
-                <Text>🗺️ Hunt Spot: {meatItem.huntSpot}</Text>
-                <Text>💾 Code: {meatItem.code}</Text>
-                <Text>⚖️ Weight: {meatItem.weight}</Text>
-                <Text>🍴 Consumed: {meatItem.consumed ? 'Yes' : 'No'}</Text>
+                <Text>
+                    <Text style={styles.bolded}>💾 Code:</Text> {meatItem.code}
+                </Text>
+                <Text>
+                    <Text style={styles.bolded}>🦌 Species:</Text> {meatItem.species}
+                </Text>
+                <Text>
+                    <Text style={styles.bolded}>🍗 Cut:</Text> {meatItem.cut}
+                </Text>
+                <Text>
+                    <Text style={styles.bolded}>📅 Hunt Date:</Text> {moment(meatItem.huntDate).format('DD MM YYYY')}
+                </Text>
+                <Text>
+                    <Text style={styles.bolded}>🗺️ Hunt Spot:</Text> {meatItem.huntSpot}
+                </Text>
+                <Text>
+                    <Text style={styles.bolded}>⚖️ Weight:</Text> {meatItem.weight}
+                </Text>
+                <Text>
+                    <Text style={styles.bolded}>🍴 Consumed:</Text> {meatItem.consumed ? 'Yes' : 'No'}
+                </Text>
             </View>
-            <View>
-                <Button
-                    color="red"
-                    title="Edit"
-                    onPress={() => handleEditButtonPress()}
-                />
-            </View>
-            <View>
-                <Button
-                    color="blue"
-                    title={meatItem.consumed ? 'Mark as not Consumed' : 'Mark as Consumed'}
-                    onPress={() => handleConsumptionChange()}
-                />
+            <View style={styles.buttonGroup}>
+                <View style={styles.button}>
+                    <Button
+                        color="red"
+                        title="🖊️ Edit"
+                        onPress={() => handleEditButtonPress()}
+                    />
+                </View>
+                <View style={styles.button}>
+                    <Button
+                        color="orange"
+                        title={meatItem.consumed ? '❌ Mark as not Consumed' : '✔️ Mark as Consumed'}
+                        onPress={() => handleConsumptionChange()}
+                    />
+                </View>
             </View>
         </View>
     )
 }
 
-
 const styles = StyleSheet.create({
-    meatItem: {
-        width: '100%',
-        padding: 20,
-        alignSelf: 'center',
+    container: {
         borderColor: '#ccc',
         borderBottomWidth: 1,
+        padding: 20,
+    },
+    bolded: {
+        fontWeight: 'bold',
+    },
+    meatItem: {
+        width: '100%',
+        padding: 10,
+        alignSelf: 'center',
+    },
+    button: {
+        padding: 10,
+    },
+    buttonGroup: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
     },
 })
 
