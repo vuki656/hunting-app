@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, FlatList, StyleSheet, View } from 'react-native'
+import { FlatList, StyleSheet, View } from 'react-native'
 
 import { MeatListItemScreen } from '../components/MeatListItem'
 import firebase from '../firebase'
@@ -61,11 +61,6 @@ export const MyListScreen = (props) => {
                     renderItem={({ item }) => <MeatListItemScreen meatItem={item} navigation={navigation}/>}
                 />
             </View>
-            <Button
-                color="red"
-                title="Edit"
-                onPress={() => navigation.navigate('EditMeat')}
-            />
         </View>
     )
 }

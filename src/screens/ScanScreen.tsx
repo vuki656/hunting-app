@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, StyleSheet, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 import firebase from '../firebase'
-import { setScannedCode } from '../redux/actions/userActions'
+import { setScannedCode, setSelectedMeat } from '../redux/actions/userActions'
 
 export const ScanScreen = (props) => {
     const { navigation } = props
@@ -23,29 +23,31 @@ export const ScanScreen = (props) => {
     }
 
     const handleQrCodeRead = async ({ data: scannedCode }) => {
-        let qrCodeExist = await checkIfQrCodeExists(scannedCode)
+        let existingMeat = await checkIfQrCodeExists(scannedCode)
 
-        if (qrCodeExist) {
-            console.log('code exists')
+        if (existingMeat) {
+            dispatch(setSelectedMeat(existingMeat))
+            navigation.navigate('EditMeat')
         } else {
-            navigation.navigate('SaveMeat')
             dispatch(setScannedCode(scannedCode))
+            navigation.navigate('SaveMeat')
         }
 
         setScanned(true)
     }
 
+    // Checks if QR code exists and returns the meat if true
     const checkIfQrCodeExists = async (scannedCode) => {
-        let qrCodeExists = false
+        let existingMeat = null
 
         await firebase
         .database()
         .ref(`meat/${currentUserUid}/${scannedCode}`)
-        .once('value', snapshot => {
-            if (snapshot.exists()) qrCodeExists = true
+        .once('value', meatItem => {
+            if (meatItem.exists()) existingMeat = meatItem.val()
         })
 
-        return qrCodeExists
+        return existingMeat
     }
 
     return (
