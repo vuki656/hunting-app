@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/types'
 
 const initialState = {
     scannedCode: '',
+    selectedMeat: '',
 }
 
 const userReducer = (state = initialState, action) => {
@@ -10,6 +11,11 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 scannedCode: action.payload.scannedCode,
+            }
+        case actionTypes.SET_SELECTED_MEAT:
+            return {
+                ...state,
+                selectedMeat: action.payload.selectedMeat,
             }
         default:
             return state

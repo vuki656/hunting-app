@@ -8,3 +8,12 @@ export const setScannedCode = (scannedCode) => {
         },
     }
 }
+
+export const setSelectedMeat = (selectedMeat) => {
+    return {
+        type: actionTypes.SET_SELECTED_MEAT,
+        payload: {
+            selectedMeat,
+        },
+    }
+}

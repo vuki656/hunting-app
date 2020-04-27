@@ -1,66 +1,58 @@
 import DateTimePicker from '@react-native-community/datetimepicker'
 import moment from 'moment'
-import React, { useState } from 'react'
+import * as React from 'react'
+import { useState } from 'react'
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import useToggle from 'react-use/lib/useToggle'
-
+import { MeatItemType } from '../components/MeatListItem'
 import firebase from '../firebase'
 
-export const SaveMeatByCodeScreen = (props) => {
+export const EditMeatScreen = (props) => {
     const { navigation } = props
 
-    const [currentUserUid] = useState(firebase.auth().currentUser.uid)
+    const selectedMeat: MeatItemType = useSelector((state) => state.user.selectedMeat)
     const [isDatePickerToggled, toggleDatePicker] = useToggle(false)
-    const scannedCode = useSelector((state) => state.user.scannedCode)
+    const [currentUserUid] = useState(firebase.auth().currentUser.uid)
 
-    const [species, setSpecies] = useState('')
-    const [cut, setCut] = useState('')
-    const [weight, setWeight] = useState('')
-    const [huntSpot, setHuntSpot] = useState('')
-    const [huntDate, setHuntDate] = useState(new Date())
+    const [species, setSpecies] = useState(selectedMeat.species)
+    const [cut, setCut] = useState(selectedMeat.cut)
+    const [weight, setWeight] = useState(selectedMeat.weight)
+    const [huntSpot, setHuntSpot] = useState(selectedMeat.huntSpot)
+    const [consumed, setConsumed] = useToggle(selectedMeat.consumed)
+
+    const [huntDate, setHuntDate] = useState(new Date(selectedMeat.huntDate))
 
     const handleHuntDateChange = (event, selectedDate) => {
         setHuntDate(selectedDate)
         toggleDatePicker()
     }
 
-    const clearForm = () => {
-        setSpecies('')
-        setCut('')
-        setWeight('')
-        setHuntSpot('')
-        setHuntDate(new Date())
-    }
-
-    const handleMeatSave = () => {
+    const handleMeatEditSave = () => {
         firebase
         .database()
-        .ref(`meat/${currentUserUid}/${scannedCode}`)
+        .ref(`meat/${currentUserUid}/${selectedMeat.code}`)
         .update({
-            code: scannedCode,
             species,
             cut,
             weight,
             huntSpot,
             huntDate: huntDate.valueOf(),
-            consumed: false,
+            consumed,
         })
         .then(() => {
             alert(`Saved Successfully`)
-            clearForm()
             navigation.navigate('My List')
         })
         .catch(() => {
             alert('Something wen\'t wrong, please try again.')
-            clearForm()
         })
     }
 
     return (
         <View style={styles.container}>
             <Text>
-                Scanned code: {scannedCode}
+                Scanned code: {selectedMeat.code}
             </Text>
             <TextInput
                 value={species}
@@ -98,20 +90,26 @@ export const SaveMeatByCodeScreen = (props) => {
                 placeholder="Hunt Spot"
                 onChangeText={setHuntSpot}
             />
+            <View>
+                <Button
+                    color="blue"
+                    title={consumed ? 'Mark as not Consumed' : 'Mark as Consumed'}
+                    onPress={() => setConsumed()}
+                />
+            </View>
             <Button
                 color="red"
                 title="Save"
-                onPress={() => handleMeatSave()}
+                onPress={() => handleMeatEditSave()}
             />
         </View>
-
     )
 }
-
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: 'column',
     },
     input: {
         width: '100%',
@@ -122,5 +120,3 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
 })
-
-

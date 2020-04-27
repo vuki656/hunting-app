@@ -3,16 +3,17 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 
 import firebase from '../../firebase'
+import { EditMeatScreen } from '../../screens/EditMeatScreen'
 import { LoginScreen } from '../../screens/LoginScreen'
 import { RegisterScreen } from '../../screens/RegisterScreen'
 import { SaveMeatByCodeScreen } from '../../screens/SaveMeatByCode'
 import { MainRouter } from '../MainRouter'
+import { MeatListItemScreen } from '../MeatListItem'
 
 const Stack = createStackNavigator()
 
 export const AuthRouter = () => {
     const [initialRoute, setInitialRoute] = useState('Login') // TODO Set to login
-
 
     useEffect(() => {
         firebase.auth().onAuthStateChanged(user => {
@@ -50,6 +51,20 @@ export const AuthRouter = () => {
                 component={SaveMeatByCodeScreen}
                 options={{
                     title: 'SaveMeat',
+                }}
+            />
+            <Stack.Screen
+                name="MeatItem"
+                component={MeatListItemScreen}
+                options={{
+                    title: 'MeatItem',
+                }}
+            />
+            <Stack.Screen
+                name="EditMeat"
+                component={EditMeatScreen}
+                options={{
+                    title: 'EditMeat',
                 }}
             />
         </Stack.Navigator>

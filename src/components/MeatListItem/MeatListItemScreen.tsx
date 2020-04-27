@@ -2,15 +2,19 @@ import moment from 'moment'
 import * as React from 'react'
 import { useState } from 'react'
 import { Button, StyleSheet, Text, View } from 'react-native'
+import { useDispatch } from 'react-redux'
+
 import firebase from '../../firebase'
+import { setSelectedMeat } from '../../redux/actions/userActions'
 
-import { MeatListItemProps } from './MeatListItem.types'
+export const MeatListItemScreen = (props) => {
+    const { meatItem, navigation } = props
 
-export const MeatListItem: React.FC<MeatListItemProps> = (props) => {
-    const { meatItem } = props
+    const dispatch = useDispatch()
 
     const [currentUserUid] = useState(firebase.auth().currentUser.uid)
 
+    // Toggle consumed status on click
     const handleConsumptionChange = () => {
         firebase
         .database()
@@ -24,6 +28,11 @@ export const MeatListItem: React.FC<MeatListItemProps> = (props) => {
         .catch(() => {
             alert('Something wen\'t wrong, please try again.')
         })
+    }
+
+    const handleEditButtonPress = () => {
+        dispatch(setSelectedMeat(meatItem))
+        navigation.navigate('EditMeat')
     }
 
     return (
@@ -41,7 +50,7 @@ export const MeatListItem: React.FC<MeatListItemProps> = (props) => {
                 <Button
                     color="red"
                     title="Edit"
-                    onPress={() => console.log('hey')}
+                    onPress={() => handleEditButtonPress()}
                 />
             </View>
             <View>

@@ -1,8 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import * as React from 'react'
 
-import { AddNewScreen } from '../../screens/AddNewScreen'
-import { HomeScreen } from '../../screens/HomeScreen'
 import { MyListScreen } from '../../screens/MyListScreen'
 import { ScanScreen } from '../../screens/ScanScreen'
 import { SettingsScreen } from '../../screens/SettingsScreen'
@@ -22,10 +20,8 @@ export const MainRouter = () => {
                     />,
             })}
         >
-            <Tab.Screen name="Home" component={HomeScreen} />
             <Tab.Screen name="Scan" component={ScanScreen} />
             <Tab.Screen name="My List" component={MyListScreen} />
-            <Tab.Screen name="Add New" component={AddNewScreen} />
             <Tab.Screen name="Settings" component={SettingsScreen} />
         </Tab.Navigator>
     )

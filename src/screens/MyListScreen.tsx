@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, StyleSheet, View } from 'react-native'
+import { Button, FlatList, StyleSheet, View } from 'react-native'
 
-import { MeatListItem } from '../components/MeatListItem'
+import { MeatListItemScreen } from '../components/MeatListItem'
 import firebase from '../firebase'
 
-export const MyListScreen = () => {
+export const MyListScreen = (props) => {
+    const { navigation } = props
+
     const [currentUserUid] = useState(firebase.auth().currentUser.uid)
     const [meatList, setMeatList] = useState([])
 
+
+    // TODO: list not fetching after scan, something with updating on unmounted component
     useEffect(() => {
         fetchMeat()
         activateListeners()
@@ -54,9 +58,14 @@ export const MyListScreen = () => {
             <View>
                 <FlatList
                     data={meatList}
-                    renderItem={({ item }) => <MeatListItem meatItem={item} />}
+                    renderItem={({ item }) => <MeatListItemScreen meatItem={item} navigation={navigation}/>}
                 />
             </View>
+            <Button
+                color="red"
+                title="Edit"
+                onPress={() => navigation.navigate('EditMeat')}
+            />
         </View>
     )
 }

@@ -1,5 +1,6 @@
 export type MeatListItemProps = {
-    meatItem: MeatItemType
+    meatItem: MeatItemType,
+    navigation?: any // TODO: set type
 }
 
 export type MeatItemType = {
@@ -8,6 +9,6 @@ export type MeatItemType = {
     huntSpot: string,
     species: string,
     code: string,
-    weight: number,
+    weight: string,
     consumed: boolean,
 }
