@@ -13,7 +13,18 @@ export const MyListScreen = (props) => {
     useEffect(() => {
         activateListeners()
         fetchMeat()
+
+        return () => {
+            turnOffConnection()
+        }
     }, [])
+
+    const turnOffConnection = () => {
+        firebase
+        .database()
+        .ref(`meat/${currentUserUid}`)
+        .off()
+    }
 
     // Listen for meat changes
     const activateListeners = () => {
