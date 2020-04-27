@@ -45,7 +45,7 @@ export const SaveMeatByCodeScreen = (props) => {
             weight,
             huntSpot,
             huntDate: huntDate.valueOf(),
-
+            consumed: false,
         })
         .then(() => {
             alert(`Saved Successfully`)
