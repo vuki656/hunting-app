@@ -1,9 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import * as React from 'react'
 
-import { MyListScreen } from '../../screens/MyListScreen'
-import { ScanScreen } from '../../screens/ScanScreen'
-import { SettingsScreen } from '../../screens/SettingsScreen'
+import {
+    MyListScreen,
+    ScanScreen,
+    SettingsScreen,
+} from '../../screens'
 import { FooterBarIcon } from '../FooterBarIcon'
 
 const Tab = createBottomTabNavigator()

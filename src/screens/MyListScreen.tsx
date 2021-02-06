@@ -1,25 +1,22 @@
-import React, {
- useEffect,
-useState 
-} from 'react'
+import React from "react"
 import {
- FlatList,
-StyleSheet,
-View 
+     FlatList,
+    StyleSheet,
+    View
 } from 'react-native'
 
 import type { MeatItemType} from '../components/MeatListItem';
-import { MeatListItemScreen 
+import { MeatListItemScreen
 } from '../components/MeatListItem'
 import firebase from '../firebase'
 
 export const MyListScreen = (props) => {
     const { navigation } = props
 
-    const [currentUserUid] = useState(firebase.auth().currentUser.uid)
-    const [meatList, setMeatList] = useState<MeatItemType[]>([])
+    const [currentUserUid] = React.useState(firebase.auth().currentUser.uid)
+    const [meatList, setMeatList] = React.useState<MeatItemType[]>([])
 
-    useEffect(() => {
+    React.useEffect(() => {
         activateListeners()
         fetchMeat()
 
@@ -72,7 +69,7 @@ export const MyListScreen = (props) => {
         <View style={styles.container}>
             <View>
                 {meatList && (
-<FlatList
+                <FlatList
                     data={meatList}
                     renderItem={({ item }) => (
                         <MeatListItemScreen
@@ -82,7 +79,7 @@ export const MyListScreen = (props) => {
                         />
                     )}
                 />
-)}
+                )}
             </View>
         </View>
     )

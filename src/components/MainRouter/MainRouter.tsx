@@ -1,25 +1,23 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
-import {
-    useEffect,
-    useState,
-} from 'react'
 
 import firebase from '../../firebase'
-import { EditMeatScreen } from '../../screens/EditMeatScreen'
-import { EditProfileScreen } from '../../screens/EditProfileScreen'
-import { LoginScreen } from '../../screens/LoginScreen'
-import { RegisterScreen } from '../../screens/RegisterScreen'
-import { SaveMeatByCodeScreen } from '../../screens/SaveMeatByCode'
+import {
+    EditMeatScreen,
+    EditProfileScreen,
+    LoginScreen,
+    RegisterScreen,
+    SaveMeatByCodeScreen,
+} from '../../screens'
 import { BottomNavRouter } from '../BottomNavRouter'
 import { MeatListItemScreen } from '../MeatListItem'
 
 const Stack = createStackNavigator()
 
 export const MainRouter = () => {
-    const [initialRoute, setInitialRoute] = useState('Login')
+    const [initialRoute, setInitialRoute] = React.useState('Login')
 
-    useEffect(() => {
+    React.useEffect(() => {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) setInitialRoute('Home')
         })

@@ -2,18 +2,18 @@ import * as actionTypes from './types'
 
 export const setScannedCode = (scannedCode) => {
     return {
-        type: actionTypes.SET_SCANNED_CODE,
         payload: {
-            scannedCode,
+            scannedCode: scannedCode,
         },
+        type: actionTypes.SET_SCANNED_CODE,
     }
 }
 
 export const setSelectedMeat = (selectedMeat) => {
     return {
-        type: actionTypes.SET_SELECTED_MEAT,
         payload: {
-            selectedMeat,
+            selectedMeat: selectedMeat,
         },
+        type: actionTypes.SET_SELECTED_MEAT,
     }
 }

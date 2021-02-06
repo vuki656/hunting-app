@@ -1,7 +1,7 @@
-import { RouteProp } from "@react-navigation/core"
+import type { RouteProp } from '@react-navigation/native';
 
 export type FooterBarIconProps = {
-    color: string,
-    focused: boolean,
-    route: RouteProp<Record<string, object>, string>;
+    color: string
+    focused: boolean
+    route: RouteProp<Record<string, object>, string>
 }

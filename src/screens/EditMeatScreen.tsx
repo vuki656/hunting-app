@@ -3,12 +3,12 @@ import moment from 'moment'
 import * as React from 'react'
 import { useState } from 'react'
 import {
- Button,
-ScrollView,
-StyleSheet,
-Text,
-TextInput,
-View 
+    Button,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    View
 } from 'react-native'
 import { useSelector } from 'react-redux'
 import useToggle from 'react-use/lib/useToggle'
@@ -38,52 +38,52 @@ export const EditMeatScreen = (props) => {
 
     const handleMeatEditSave = () => {
         firebase
-            .database()
-            .ref(`meat/${currentUserUid}/${selectedMeat.code}`)
-            .update({
-                species: species,
-                cut: cut,
-                weight: weight,
-                huntSpot: huntSpot,
-                huntDate: huntDate.valueOf(),
-                consumed: consumed,
-            })
-            .then(() => {
-                alert('Saved Successfully')
-                navigation.navigate('My List')
-            })
-            .catch(() => {
-                alert('Something wen\'t wrong, please try again.')
-            })
+        .database()
+        .ref(`meat/${currentUserUid}/${selectedMeat.code}`)
+        .update({
+            species: species,
+            cut: cut,
+            weight: weight,
+            huntSpot: huntSpot,
+            huntDate: huntDate.valueOf(),
+            consumed: consumed,
+        })
+        .then(() => {
+            alert('Saved Successfully')
+            navigation.navigate('My List')
+        })
+        .catch(() => {
+            alert('Something wen\'t wrong, please try again.')
+        })
     }
 
     const handleItemDelete = () => {
         firebase
-            .database()
-            .ref(`meat/${currentUserUid}/${selectedMeat.code}`)
-            .remove()
-            .then(() => {
-                navigation.navigate('My List')
-            })
-            .catch(() => {
-                alert('Something wen\'t wrong, please try again.')
-            })
+        .database()
+        .ref(`meat/${currentUserUid}/${selectedMeat.code}`)
+        .remove()
+        .then(() => {
+            navigation.navigate('My List')
+        })
+        .catch(() => {
+            alert('Something wen\'t wrong, please try again.')
+        })
     }
 
     return (
         <ScrollView>
             <View style={styles.container}>
                 <Text style={styles.label}>
-💾 QR Code
-</Text>
+                    💾 QR Code
+                </Text>
                 <TextInput
                     editable={false}
                     style={styles.field}
                     value={selectedMeat.code}
                 />
                 <Text style={styles.label}>
-🦌 Species
-</Text>
+                    🦌 Species
+                </Text>
                 <TextInput
                     onChangeText={setSpecies}
                     placeholder="Species"
@@ -91,8 +91,8 @@ export const EditMeatScreen = (props) => {
                     value={species}
                 />
                 <Text style={styles.label}>
-🍗 Cut
-</Text>
+                    🍗 Cut
+                </Text>
                 <TextInput
                     onChangeText={setCut}
                     placeholder="Cut"
@@ -100,8 +100,8 @@ export const EditMeatScreen = (props) => {
                     value={cut}
                 />
                 <Text style={styles.label}>
-📅 Hunt Date
-</Text>
+                    📅 Hunt Date
+                </Text>
                 <TextInput
                     editable={false}
                     placeholder="📅 Hunt Date"
@@ -109,8 +109,10 @@ export const EditMeatScreen = (props) => {
                     value={moment(huntDate).format('DD MM YYYY')}
                 />
                 <View>
-                    <Button title="📆 Choose Hunt Date"
-onPress={toggleDatePicker} />
+                    <Button
+                        title="📆 Choose Hunt Date"
+                        onPress={toggleDatePicker}
+                    />
                 </View>
                 <View>
                     {isDatePickerToggled && (
@@ -121,8 +123,8 @@ onPress={toggleDatePicker} />
                     )}
                 </View>
                 <Text style={styles.label}>
-🗺️ Hunt Spot
-</Text>
+                    🗺️ Hunt Spot
+                </Text>
                 <TextInput
                     onChangeText={setHuntSpot}
                     placeholder="Hunt Spot"
@@ -130,8 +132,8 @@ onPress={toggleDatePicker} />
                     value={huntSpot}
                 />
                 <Text style={styles.label}>
-⚖ Weight (Kg)
-</Text>
+                    ⚖ Weight (Kg)
+                </Text>
                 <TextInput
                     onChangeText={setWeight}
                     placeholder="Weight (Kg)"

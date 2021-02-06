@@ -22,8 +22,10 @@ export const FooterBarIcon: React.FunctionComponent<FooterBarIconProps> = (props
     }
 
     return (
-        <MaterialCommunityIcons name={getIconName()}
-size={20}
-color={color} />
+        <MaterialCommunityIcons
+name={getIconName()}
+            size={20}
+            color={color}
+        />
     )
 }
