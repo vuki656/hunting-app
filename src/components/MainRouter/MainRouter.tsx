@@ -1,6 +1,9 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import * as React from 'react'
-import { useEffect, useState } from 'react'
+import {
+    useEffect,
+    useState,
+} from 'react'
 
 import firebase from '../../firebase'
 import { EditMeatScreen } from '../../screens/EditMeatScreen'
@@ -17,7 +20,7 @@ export const MainRouter = () => {
     const [initialRoute, setInitialRoute] = useState('Login')
 
     useEffect(() => {
-        firebase.auth().onAuthStateChanged(user => {
+        firebase.auth().onAuthStateChanged((user) => {
             if (user) setInitialRoute('Home')
         })
     }, [setInitialRoute])
@@ -27,43 +30,43 @@ export const MainRouter = () => {
             initialRouteName={initialRoute}
             screenOptions={{
                 headerTitleAlign: 'center',
-            }}>
+            }}
+        >
             <Stack.Screen
-                name="Login"
                 component={LoginScreen}
+                name="Login"
                 options={{ title: 'Login' }}
             />
             <Stack.Screen
-                name="Register"
                 component={RegisterScreen}
+                name="Register"
                 options={{ title: 'Register' }}
             />
             <Stack.Screen
-                name="Home"
                 component={BottomNavRouter}
+                name="Home"
                 options={{ title: 'Home' }}
             />
             <Stack.Screen
-                name="SaveMeat"
                 component={SaveMeatByCodeScreen}
+                name="SaveMeat"
                 options={{ title: 'Save Meat' }}
             />
             <Stack.Screen
-                name="MeatItem"
                 component={MeatListItemScreen}
+                name="MeatItem"
                 options={{ title: 'Meat Item' }}
             />
             <Stack.Screen
-                name="EditMeat"
                 component={EditMeatScreen}
+                name="EditMeat"
                 options={{ title: 'Edit Meat' }}
             />
             <Stack.Screen
-                name="EditProfile"
                 component={EditProfileScreen}
+                name="EditProfile"
                 options={{ title: 'Edit Profile' }}
             />
         </Stack.Navigator>
     )
 }
-

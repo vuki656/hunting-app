@@ -1,5 +1,10 @@
 import React from 'react'
-import { Button, StyleSheet, View } from 'react-native'
+import {
+    Button,
+    StyleSheet,
+    View,
+} from 'react-native'
+
 import firebase from '../firebase'
 
 export const SettingsScreen = (props) => {
@@ -7,11 +12,11 @@ export const SettingsScreen = (props) => {
 
     const handleLogOut = () => {
         firebase
-        .auth()
-        .signOut()
-        .then(() => {
-            navigation.navigate('Login')
-        })
+            .auth()
+            .signOut()
+            .then(() => {
+                navigation.navigate('Login')
+            })
     }
 
     return (
@@ -19,15 +24,17 @@ export const SettingsScreen = (props) => {
             <View style={styles.button}>
                 <Button
                     color="orange"
+                    onPress={() => {
+                        handleLogOut()
+                    }}
                     title="🔙 Logout"
-                    onPress={() => handleLogOut()}
                 />
             </View>
             <View style={styles.button}>
                 <Button
                     color="red"
-                    title="🖊️ Edit Profile"
                     onPress={() => navigation.navigate('EditProfile')}
+                    title="🖊️ Edit Profile"
                 />
             </View>
         </View>
@@ -35,14 +42,14 @@ export const SettingsScreen = (props) => {
 }
 
 const styles = StyleSheet.create({
+    button: {
+        marginTop: 20,
+    },
     container: {
-        flex: 1,
         display: 'flex',
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
         padding: 40,
-    },
-    button: {
-        marginTop: 20,
     },
 })

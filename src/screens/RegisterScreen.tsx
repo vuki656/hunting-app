@@ -1,5 +1,13 @@
 import React, { useState } from 'react'
-import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import {
+    Button,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+} from 'react-native'
+
 import firebase from '../firebase'
 
 export const RegisterScreen = (props) => {
@@ -28,6 +36,7 @@ export const RegisterScreen = (props) => {
         if (!firstName || !email || !password || !repeatPassword) {
             setLoading(false)
             setError('Please fill all fields')
+
             return false
         }
 
@@ -35,10 +44,12 @@ export const RegisterScreen = (props) => {
         if (password !== repeatPassword) {
             setLoading(false)
             setError('Passwords don\'t match')
+
             return false
         }
 
         setError('')
+
         return true
     }
 
@@ -48,21 +59,21 @@ export const RegisterScreen = (props) => {
         const trimmedEmail = email.trim() // TODO: fix
 
         isInputValid && firebase
-        .auth()
-        .createUserWithEmailAndPassword(trimmedEmail, password)
-        .then((response) => {
-            response.user.updateProfile({
-                displayName: firstName,
-            })
+            .auth()
+            .createUserWithEmailAndPassword(trimmedEmail, password)
+            .then((response) => {
+                response.user.updateProfile({
+                    displayName: firstName,
+                })
 
-            setLoading(false)
-            clearForm()
-            navigation.navigate('Login')
-        })
-        .catch(error => {
-            setError(error.message)
-            setLoading(false)
-        })
+                setLoading(false)
+                clearForm()
+                navigation.navigate('Login')
+            })
+            .catch((error) => {
+                setError(error.message)
+                setLoading(false)
+            })
     }
 
     return (
@@ -73,31 +84,31 @@ export const RegisterScreen = (props) => {
                 </Text>
             </View>
             <TextInput
-                value={firstName}
-                style={styles.field}
-                placeholder="First name"
                 onChangeText={setFirstName}
+                placeholder="First name"
+                style={styles.field}
+                value={firstName}
             />
             <TextInput
-                value={email}
-                style={styles.field}
-                placeholder="Email"
                 onChangeText={setEmail}
+                placeholder="Email"
+                style={styles.field}
                 textContentType="emailAddress"
+                value={email}
             />
             <TextInput
-                value={password}
-                style={styles.field}
+                onChangeText={setPassword}
                 placeholder="Password"
                 secureTextEntry={true}
-                onChangeText={setPassword}
+                style={styles.field}
+                value={password}
             />
             <TextInput
-                value={repeatPassword}
-                style={styles.field}
+                onChangeText={setRepeatPassword}
                 placeholder="Repeat Password"
                 secureTextEntry={true}
-                onChangeText={setRepeatPassword}
+                style={styles.field}
+                value={repeatPassword}
             />
             {isLoading
                 ? (
@@ -107,16 +118,20 @@ export const RegisterScreen = (props) => {
                         </Text>
                     </View>
 
-                ) : (
+                )
+                : (
                     <Button
                         color="orange"
+                        onPress={() => {
+                            handleUserRegister()
+                        }}
                         title="Register"
-                        onPress={() => handleUserRegister()}
                     />
-                )
-            }
+                )}
             <View style={styles.footer}>
-                <Text style={styles.footerText}>Already have an account?</Text>
+                <Text style={styles.footerText}>
+                    Already have an account?
+                </Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Login')}>
                     <Text style={styles.footerCta}>
                         Login
@@ -124,7 +139,11 @@ export const RegisterScreen = (props) => {
                 </TouchableOpacity>
             </View>
             <Text style={styles.errorText}>
-                {error && (<Text>{error}</Text>)}
+                {error && (
+                    <Text>
+                        {error}
+                    </Text>
+                )}
             </Text>
         </View>
     )
@@ -132,45 +151,45 @@ export const RegisterScreen = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        backgroundColor: '#fff',
         display: 'flex',
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
         padding: 40,
-        backgroundColor: '#fff',
     },
-    title: {
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingBottom: 100,
-    },
-    titleText: {
-        fontSize: 40,
-    },
-    field: {
-        width: '100%',
-        marginBottom: 20,
-        paddingBottom: 5,
-        alignSelf: 'center',
-        borderColor: '#ccc',
-        borderBottomWidth: 1,
-    },
-    footer: {
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    footerText: {
+    errorText: {
+        color: 'red',
         marginTop: 25,
         textAlign: 'center',
+    },
+    field: {
+        alignSelf: 'center',
+        borderBottomWidth: 1,
+        borderColor: '#ccc',
+        marginBottom: 20,
+        paddingBottom: 5,
+        width: '100%',
+    },
+    footer: {
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     footerCta: {
         color: 'orange',
         fontWeight: 'bold',
     },
-    errorText: {
+    footerText: {
         marginTop: 25,
         textAlign: 'center',
-        color: 'red',
+    },
+    title: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingBottom: 100,
+        width: '100%',
+    },
+    titleText: {
+        fontSize: 40,
     },
 })

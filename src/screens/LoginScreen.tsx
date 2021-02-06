@@ -1,5 +1,13 @@
 import React, { useState } from 'react'
-import { Button, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import {
+    Button,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
+} from 'react-native'
+
 import firebase from '../firebase'
 
 export const LoginScreen = (props) => {
@@ -24,10 +32,12 @@ export const LoginScreen = (props) => {
         if (!email || !password) {
             setLoading(false)
             setError('Please fill all fields')
+
             return false
         }
 
         setError('')
+
         return true
     }
 
@@ -37,17 +47,17 @@ export const LoginScreen = (props) => {
         const trimmedEmail = email.trim() // TODO: fix
 
         isInputValid && firebase
-        .auth()
-        .signInWithEmailAndPassword(trimmedEmail, password)
-        .then(() => {
-            setLoading(false)
-            clearForm()
-            navigation.navigate('Home')
-        })
-        .catch(error => {
-            setError(error.message)
-            setLoading(false)
-        })
+            .auth()
+            .signInWithEmailAndPassword(trimmedEmail, password)
+            .then(() => {
+                setLoading(false)
+                clearForm()
+                navigation.navigate('Home')
+            })
+            .catch((error) => {
+                setError(error.message)
+                setLoading(false)
+            })
     }
 
     return (
@@ -58,18 +68,18 @@ export const LoginScreen = (props) => {
                 </Text>
             </View>
             <TextInput
-                value={email}
-                style={styles.field}
-                placeholder="Email"
                 onChangeText={setEmail}
+                placeholder="Email"
+                style={styles.field}
                 textContentType="emailAddress"
+                value={email}
             />
             <TextInput
-                value={password}
-                style={styles.field}
+                onChangeText={setPassword}
                 placeholder="Password"
                 secureTextEntry={true}
-                onChangeText={setPassword}
+                style={styles.field}
+                value={password}
             />
             {isLoading
                 ? (
@@ -79,16 +89,20 @@ export const LoginScreen = (props) => {
                         </Text>
                     </View>
 
-                ) : (
+                )
+                : (
                     <Button
                         color="orange"
+                        onPress={() => {
+                            handleUserLogin()
+                        }}
                         title="Login"
-                        onPress={() => handleUserLogin()}
                     />
-                )
-            }
+                )}
             <View style={styles.footer}>
-                <Text style={styles.footerText}>Don't have an account?</Text>
+                <Text style={styles.footerText}>
+                    Don't have an account?
+                </Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Register')}>
                     <Text style={styles.footerCta}>
                         Register
@@ -96,7 +110,11 @@ export const LoginScreen = (props) => {
                 </TouchableOpacity>
             </View>
             <Text style={styles.errorText}>
-                {error && (<Text>{error}</Text>)}
+                {error && (
+                    <Text>
+                        {error}
+                    </Text>
+                )}
             </Text>
         </View>
     )
@@ -104,45 +122,45 @@ export const LoginScreen = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        backgroundColor: '#fff',
         display: 'flex',
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
         padding: 40,
-        backgroundColor: '#fff',
     },
-    title: {
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingBottom: 100,
-    },
-    titleText: {
-        fontSize: 40,
-    },
-    field: {
-        width: '100%',
-        marginBottom: 20,
-        paddingBottom: 5,
-        alignSelf: 'center',
-        borderColor: '#ccc',
-        borderBottomWidth: 1,
-    },
-    footer: {
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    footerText: {
+    errorText: {
+        color: 'red',
         marginTop: 25,
         textAlign: 'center',
+    },
+    field: {
+        alignSelf: 'center',
+        borderBottomWidth: 1,
+        borderColor: '#ccc',
+        marginBottom: 20,
+        paddingBottom: 5,
+        width: '100%',
+    },
+    footer: {
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     footerCta: {
         color: 'orange',
         fontWeight: 'bold',
     },
-    errorText: {
+    footerText: {
         marginTop: 25,
         textAlign: 'center',
-        color: 'red',
+    },
+    title: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingBottom: 100,
+        width: '100%',
+    },
+    titleText: {
+        fontSize: 40,
     },
 })

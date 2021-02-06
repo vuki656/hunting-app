@@ -1,6 +1,12 @@
 import * as React from 'react'
 import { useState } from 'react'
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
+import {
+    Button,
+    StyleSheet,
+    Text,
+    TextInput,
+    View,
+} from 'react-native'
 
 import firebase from '../firebase'
 
@@ -18,26 +24,26 @@ export const EditProfileScreen = (props) => {
     const handleProfileSave = () => {
         if (firstName !== currentUser.displayName) {
             currentUser
-            .updateProfile({ displayName: firstName })
-            .catch((error) => {
-                setError(error.message)
-            })
+                .updateProfile({ displayName: firstName })
+                .catch((error) => {
+                    setError(error.message)
+                })
         }
 
         if (email !== currentUser.email) {
             currentUser
-            .updateEmail(email)
-            .catch((error) => {
-                setError(error.message)
-            })
+                .updateEmail(email)
+                .catch((error) => {
+                    setError(error.message)
+                })
         }
 
         if (password && password === repeatPassword) {
             currentUser
-            .updatePassword(password)
-            .catch((error) => {
-                setError(error.message)
-            })
+                .updatePassword(password)
+                .catch((error) => {
+                    setError(error.message)
+                })
         }
 
         if (!error) {
@@ -48,51 +54,65 @@ export const EditProfileScreen = (props) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.label}>💳 First Name</Text>
+            <Text style={styles.label}>
+                💳 First Name
+            </Text>
             <TextInput
-                value={firstName}
-                style={styles.field}
-                placeholder="First Name"
                 onChangeText={setFirstName}
-            />
-            <Text style={styles.label}>📧 Email</Text>
-            <TextInput
-                value={email}
+                placeholder="First Name"
                 style={styles.field}
-                placeholder="Email"
+                value={firstName}
+            />
+            <Text style={styles.label}>
+                📧 Email
+            </Text>
+            <TextInput
                 onChangeText={setEmail}
-            />
-            <Text style={styles.label}>🔑 Password</Text>
-            <TextInput
-                value={password}
+                placeholder="Email"
                 style={styles.field}
+                value={email}
+            />
+            <Text style={styles.label}>
+                🔑 Password
+            </Text>
+            <TextInput
+                onChangeText={setPassword}
                 placeholder="Password"
                 secureTextEntry={true}
-                onChangeText={setPassword}
-            />
-            <Text style={styles.label}>🔁 Repeat Password</Text>
-            <TextInput
-                value={repeatPassword}
                 style={styles.field}
+                value={password}
+            />
+            <Text style={styles.label}>
+                🔁 Repeat Password
+            </Text>
+            <TextInput
+                onChangeText={setRepeatPassword}
                 placeholder="Repeat Password"
                 secureTextEntry={true}
-                onChangeText={setRepeatPassword}
+                style={styles.field}
+                value={repeatPassword}
             />
             <Text style={styles.errorText}>
-                {error && (<Text>{error}</Text>)}
+                {error && (
+                    <Text>
+                        {error}
+                    </Text>
+                )}
             </Text>
             <View style={styles.button}>
                 <Button
                     color="red"
+                    onPress={() => {
+                        handleProfileSave()
+                    }}
                     title="💾 Save"
-                    onPress={() => handleProfileSave()}
                 />
             </View>
             <View style={styles.button}>
                 <Button
                     color="orange"
-                    title="❌ Cancel"
                     onPress={() => navigation.goBack()}
+                    title="❌ Cancel"
                 />
             </View>
         </View>
@@ -100,31 +120,31 @@ export const EditProfileScreen = (props) => {
 }
 
 const styles = StyleSheet.create({
+    button: {
+        padding: 20,
+    },
     container: {
-        flex: 1,
         display: 'flex',
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
         padding: 20,
     },
-    field: {
-        width: '100%',
-        paddingBottom: 5,
-        marginBottom: 5,
-        alignSelf: 'center',
-        borderColor: '#ccc',
-        borderBottomWidth: 1,
-    },
-    label: {
-        marginTop: 30,
-        fontWeight: 'bold',
-    },
-    button: {
-        padding: 20,
-    },
     errorText: {
+        color: 'red',
         marginTop: 25,
         textAlign: 'center',
-        color: 'red',
+    },
+    field: {
+        alignSelf: 'center',
+        borderBottomWidth: 1,
+        borderColor: '#ccc',
+        marginBottom: 5,
+        paddingBottom: 5,
+        width: '100%',
+    },
+    label: {
+        fontWeight: 'bold',
+        marginTop: 30,
     },
 })

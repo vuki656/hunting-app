@@ -12,17 +12,27 @@ export const BottomNavRouter = () => {
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
-                tabBarIcon: ({ color, focused }) =>
+                tabBarIcon: ({ color, focused }) => (
                     <FooterBarIcon
                         color={color}
                         focused={focused}
                         route={route}
-                    />,
+                    />
+                ),
             })}
         >
-            <Tab.Screen name="My List" component={MyListScreen} />
-            <Tab.Screen name="Scan" component={ScanScreen} />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
+            <Tab.Screen
+                component={MyListScreen}
+                name="My List"
+            />
+            <Tab.Screen
+                component={ScanScreen}
+                name="Scan"
+            />
+            <Tab.Screen
+                component={SettingsScreen}
+                name="Settings"
+            />
         </Tab.Navigator>
     )
 }

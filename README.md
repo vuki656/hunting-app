@@ -1,16 +1,13 @@
 # How to use
-The apps purpose is to help hunters keep track of the meat they caught.
 
-## Note
-The app works with any kind of QR code. 
-
-There are 2 example QR codes in the assets/images/qrcodes folder.
+## Purpose
+Help hunters keep track of the meat they caught.
 
 ## Process
 1. Hunt something
 2. Cut it up
 3. Put a QR Code on each piece of meat
-4. Scan the QR Code with the app and save it as a piece of meat
+4. Scan the QR Code with the app and log details of that piece in the app
 5. Done
 
 If after 2 months you open the freezer and want 
@@ -28,4 +25,8 @@ and the app will display what it is.
 - Delete a piece of meat
 - Scan QR code of existing QR code to see what it is
 - Edit existing meat info
- 
+
+## Note
+- The app works with any kind of QR code.
+
+- There are 2 example QR codes in the `assets/images/qrcodes` folder.

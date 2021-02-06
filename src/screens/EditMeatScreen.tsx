@@ -2,11 +2,18 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import moment from 'moment'
 import * as React from 'react'
 import { useState } from 'react'
-import { Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
+import {
+ Button,
+ScrollView,
+StyleSheet,
+Text,
+TextInput,
+View 
+} from 'react-native'
 import { useSelector } from 'react-redux'
 import useToggle from 'react-use/lib/useToggle'
 
-import { MeatItemType } from '../components/MeatListItem'
+import type { MeatItemType } from '../components/MeatListItem'
 import firebase from '../firebase'
 
 export const EditMeatScreen = (props) => {
@@ -31,113 +38,126 @@ export const EditMeatScreen = (props) => {
 
     const handleMeatEditSave = () => {
         firebase
-        .database()
-        .ref(`meat/${currentUserUid}/${selectedMeat.code}`)
-        .update({
-            species,
-            cut,
-            weight,
-            huntSpot,
-            huntDate: huntDate.valueOf(),
-            consumed,
-        })
-        .then(() => {
-            alert(`Saved Successfully`)
-            navigation.navigate('My List')
-        })
-        .catch(() => {
-            alert('Something wen\'t wrong, please try again.')
-        })
+            .database()
+            .ref(`meat/${currentUserUid}/${selectedMeat.code}`)
+            .update({
+                species: species,
+                cut: cut,
+                weight: weight,
+                huntSpot: huntSpot,
+                huntDate: huntDate.valueOf(),
+                consumed: consumed,
+            })
+            .then(() => {
+                alert('Saved Successfully')
+                navigation.navigate('My List')
+            })
+            .catch(() => {
+                alert('Something wen\'t wrong, please try again.')
+            })
     }
 
     const handleItemDelete = () => {
         firebase
-        .database()
-        .ref(`meat/${currentUserUid}/${selectedMeat.code}`)
-        .remove()
-        .then(() => {
-            navigation.navigate('My List')
-        })
-        .catch(() => {
-            alert('Something wen\'t wrong, please try again.')
-        })
+            .database()
+            .ref(`meat/${currentUserUid}/${selectedMeat.code}`)
+            .remove()
+            .then(() => {
+                navigation.navigate('My List')
+            })
+            .catch(() => {
+                alert('Something wen\'t wrong, please try again.')
+            })
     }
 
     return (
         <ScrollView>
             <View style={styles.container}>
-                <Text style={styles.label}>💾 QR Code</Text>
+                <Text style={styles.label}>
+💾 QR Code
+</Text>
                 <TextInput
+                    editable={false}
+                    style={styles.field}
                     value={selectedMeat.code}
-                    style={styles.field}
-                    editable={false}
                 />
-                <Text style={styles.label}>🦌 Species</Text>
+                <Text style={styles.label}>
+🦌 Species
+</Text>
                 <TextInput
-                    value={species}
-                    style={styles.field}
-                    placeholder="Species"
                     onChangeText={setSpecies}
-                />
-                <Text style={styles.label}>🍗 Cut</Text>
-                <TextInput
-                    value={cut}
+                    placeholder="Species"
                     style={styles.field}
-                    placeholder="Cut"
+                    value={species}
+                />
+                <Text style={styles.label}>
+🍗 Cut
+</Text>
+                <TextInput
                     onChangeText={setCut}
-                />
-                <Text style={styles.label}>📅 Hunt Date</Text>
-                <TextInput
-                    value={moment(huntDate).format('DD MM YYYY')}
+                    placeholder="Cut"
                     style={styles.field}
-                    placeholder="📅 Hunt Date"
+                    value={cut}
+                />
+                <Text style={styles.label}>
+📅 Hunt Date
+</Text>
+                <TextInput
                     editable={false}
+                    placeholder="📅 Hunt Date"
+                    style={styles.field}
+                    value={moment(huntDate).format('DD MM YYYY')}
                 />
                 <View>
-                    <Button title="📆 Choose Hunt Date" onPress={toggleDatePicker} />
+                    <Button title="📆 Choose Hunt Date"
+onPress={toggleDatePicker} />
                 </View>
                 <View>
                     {isDatePickerToggled && (
                         <DateTimePicker
-                            value={huntDate}
                             onChange={handleHuntDateChange}
+                            value={huntDate}
                         />
                     )}
                 </View>
-                <Text style={styles.label}>🗺️ Hunt Spot</Text>
+                <Text style={styles.label}>
+🗺️ Hunt Spot
+</Text>
                 <TextInput
-                    value={huntSpot}
-                    style={styles.field}
-                    placeholder="Hunt Spot"
                     onChangeText={setHuntSpot}
-                />
-                <Text style={styles.label}>⚖ Weight (Kg)</Text>
-                <TextInput
-                    value={weight}
+                    placeholder="Hunt Spot"
                     style={styles.field}
-                    placeholder="Weight (Kg)"
+                    value={huntSpot}
+                />
+                <Text style={styles.label}>
+⚖ Weight (Kg)
+</Text>
+                <TextInput
                     onChangeText={setWeight}
+                    placeholder="Weight (Kg)"
+                    style={styles.field}
+                    value={weight}
                 />
 
                 <View style={styles.button}>
                     <Button
                         color="red"
-                        title="🗑️ Delete"
                         onPress={() => handleItemDelete()}
+                        title="🗑️ Delete"
                     />
                 </View>
                 <View style={styles.button}>
                     <Button
                         color="orange"
-                        title={consumed ? '❌ Mark as not Consumed' : '✔️ Mark as Consumed'}
                         onPress={() => setConsumed()}
+                        title={consumed ? '❌ Mark as not Consumed' : '✔️ Mark as Consumed'}
                     />
                 </View>
                 <View style={styles.button}>
                     <Button
                         color="green"
-                        title="💾 Save"
                         onPress={() => handleMeatEditSave()}
+                        title="💾 Save"
                     />
                 </View>
             </View>
@@ -146,6 +166,9 @@ export const EditMeatScreen = (props) => {
 }
 
 const styles = StyleSheet.create({
+    button: {
+        padding: 5,
+    },
     container: {
         flex: 1,
         display: 'flex',
@@ -164,8 +187,5 @@ const styles = StyleSheet.create({
     label: {
         marginTop: 30,
         fontWeight: 'bold',
-    },
-    button: {
-        padding: 5,
     },
 })

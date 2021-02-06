@@ -1,9 +1,20 @@
 import { BarCodeScanner } from 'expo-barcode-scanner'
-import React, { useEffect, useState } from 'react'
-import { Button, StyleSheet, View } from 'react-native'
+import React, {
+    useEffect,
+    useState,
+} from 'react'
+import {
+    Button,
+    StyleSheet,
+    View,
+} from 'react-native'
 import { useDispatch } from 'react-redux'
+
 import firebase from '../firebase'
-import { setScannedCode, setSelectedMeat } from '../redux/actions/userActions'
+import {
+    setScannedCode,
+    setSelectedMeat,
+} from '../redux/actions/userActions'
 
 export const ScanScreen = (props) => {
     const { navigation } = props
@@ -41,11 +52,11 @@ export const ScanScreen = (props) => {
         let existingMeat = null
 
         await firebase
-        .database()
-        .ref(`meat/${currentUserUid}/${scannedCode}`)
-        .once('value', meatItem => {
-            if (meatItem.exists()) existingMeat = meatItem.val()
-        })
+            .database()
+            .ref(`meat/${currentUserUid}/${scannedCode}`)
+            .once('value', (meatItem) => {
+                if (meatItem.exists()) existingMeat = meatItem.val()
+            })
 
         return existingMeat
     }
@@ -61,14 +72,15 @@ export const ScanScreen = (props) => {
             {scanned && (
                 <Button
                     color="orange"
-                    title={'📷 Tap to Scan Again'}
-                    onPress={() => setScanned(false)}
+                    onPress={() => {
+                        setScanned(false)
+                    }}
+                    title="📷 Tap to Scan Again"
                 />
             )}
         </View>
     )
 }
-
 
 const styles = StyleSheet.create({
     container: {

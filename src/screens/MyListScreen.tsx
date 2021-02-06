@@ -1,7 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { FlatList, StyleSheet, View } from 'react-native'
+import React, {
+ useEffect,
+useState 
+} from 'react'
+import {
+ FlatList,
+StyleSheet,
+View 
+} from 'react-native'
 
-import { MeatItemType, MeatListItemScreen } from '../components/MeatListItem'
+import type { MeatItemType} from '../components/MeatListItem';
+import { MeatListItemScreen 
+} from '../components/MeatListItem'
 import firebase from '../firebase'
 
 export const MyListScreen = (props) => {
@@ -21,48 +30,49 @@ export const MyListScreen = (props) => {
 
     const turnOffConnection = () => {
         firebase
-        .database()
-        .ref(`meat/${currentUserUid}`)
-        .off()
+            .database()
+            .ref(`meat/${currentUserUid}`)
+            .off()
     }
 
     // Listen for meat changes
     const activateListeners = () => {
         firebase
-        .database()
-        .ref(`meat/${currentUserUid}`)
-        .on('child_changed', () => {
-            fetchMeat()
-        })
+            .database()
+            .ref(`meat/${currentUserUid}`)
+            .on('child_changed', () => {
+                fetchMeat()
+            })
     }
 
     // Get meat list from database
     const fetchMeat = () => {
         firebase
-        .database()
-        .ref('meat')
-        .child(`${currentUserUid}/`)
-        .on('value', _meatList => {
+            .database()
+            .ref('meat')
+            .child(`${currentUserUid}/`)
+            .on('value', (_meatList) => {
                 setMeatList([])
-                _meatList.forEach(meat => {
+                _meatList.forEach((meat) => {
                     setMeatList((meatList) => [...meatList, {
                         code: meat.val().code,
                         cut: meat.val().cut,
                         huntDate: meat.val().huntDate,
                         huntSpot: meat.val().huntSpot,
                         species: meat.val().species,
-                        weight: meat.val().weight,
                         consumed: meat.val().consumed,
+                        weight: meat.val().weight,
                     }])
                 })
             },
-        )
+            )
     }
 
     return (
         <View style={styles.container}>
             <View>
-                {meatList && <FlatList
+                {meatList && (
+<FlatList
                     data={meatList}
                     renderItem={({ item }) => (
                         <MeatListItemScreen
@@ -71,7 +81,8 @@ export const MyListScreen = (props) => {
                             key={item.code}
                         />
                     )}
-                />}
+                />
+)}
             </View>
         </View>
     )
@@ -83,4 +94,3 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
 })
-

@@ -1,0 +1,15 @@
+{
+    "extends": [
+        "@dvukovic/eslint-config/core",
+        "@dvukovic/eslint-config/typescript",
+        "@dvukovic/eslint-config/react",
+        "@dvukovic/eslint-config/react-native"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "./tsconfig.json"
+    },
+    "settings": {
+        "import/ignore": ["node_modules/react-native/index\\.js$"]
+    }
+}
